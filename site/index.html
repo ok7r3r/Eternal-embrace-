@@ -8,6 +8,7 @@
 <title>My Eternity, I Found You — For Anisha</title>
 <link rel="preload" as="image" href="assets/art/floating-mountains.webp?v=2" fetchpriority="high">
 <link rel="preload" as="image" href="assets/set-a/1000273785.webp?v=2" fetchpriority="high">
+<link rel="preload" as="image" href="assets/set-b/1000274618.webp?v=2" fetchpriority="low">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -526,9 +527,9 @@ function startMemoryWarmup(){
  if(saveData||type==='slow-2g'||type==='2g'||(downlink>0&&downlink<.35))return;
  const concurrency=type==='3g'?1:((type==='4g'||downlink>=3)?3:2);
  const urls=[...new Set([...data.setA,...data.setB].map(item=>item.src).concat(['assets/art/gate.webp?v=2','assets/art/butterfly-girl-mood.webp?v=2']))];
- let next=0,active=0,scheduled=false;
+ let next=0,active=0,scheduled=false,scrollPaused=false,scrollTimer=0;
  function fill(){
-  if(document.hidden||!navigator.onLine||next>=urls.length)return;
+  if(document.hidden||!navigator.onLine||scrollPaused||next>=urls.length)return;
   while(active<concurrency&&next<urls.length){
    const image=new Image();image.decoding='async';image.fetchPriority='low';
    const finish=()=>{active=Math.max(0,active-1);schedulePump(500);};
@@ -536,13 +537,18 @@ function startMemoryWarmup(){
   }
  }
  function schedulePump(delay=750){
-  if(scheduled||document.hidden||next>=urls.length)return;
+  if(scheduled||document.hidden||scrollPaused||next>=urls.length)return;
   scheduled=true;const run=()=>{scheduled=false;fill();};
   if('requestIdleCallback' in window)requestIdleCallback(run,{timeout:1600});else setTimeout(run,delay);
  }
  window.addEventListener('load',()=>setTimeout(()=>schedulePump(500),800),{once:true});
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)schedulePump(500);});
  window.addEventListener('online',()=>schedulePump(300));
+ window.addEventListener('scroll',()=>{
+  scrollPaused=true;
+  clearTimeout(scrollTimer);
+  scrollTimer=setTimeout(()=>{scrollPaused=false;schedulePump(350);},900);
+ },{passive:true});
 }
 startMemoryWarmup();
 let ticking=false;function onScroll(){if(ticking)return;ticking=true;requestAnimationFrame(()=>{ticking=false;const y=scrollY;$('#topProgress').style.width=Math.min(100,y/(document.documentElement.scrollHeight-innerHeight)*100)+'%';$('#siteNav').classList.toggle('scrolled',y>50);$('#backTop').classList.toggle('show',y>innerHeight*.7);for(const key of Object.keys(galleryRefs))updateOneGallery(key,false);const ratio=y/Math.max(1,document.documentElement.scrollHeight-innerHeight);const moon=$('#moonOrb');moon.style.transform=`translate3d(${Math.sin(ratio*Math.PI*2)*30}px,${ratio*58}vh,0) rotate(${ratio*65}deg) scale(${1+Math.sin(ratio*Math.PI)*.08})`;moon.style.opacity=String(.35+Math.sin(ratio*Math.PI)*.3);});}window.addEventListener('scroll',onScroll,{passive:true});window.addEventListener('resize',()=>{for(const key of Object.keys(galleryRefs))updateOneGallery(key,false)});onScroll();
