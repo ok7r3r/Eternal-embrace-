@@ -102,18 +102,18 @@ jobs:
           PY
 
       - name: Assemble the supplied looping soundtrack when staged
-        if: ${{ hashFiles('.github/music-chunks/*.b64') != '' && hashFiles('site/assets/.our-world-music-part-039.b64') != '' }}
+        if: ${{ hashFiles('.github/music-chunks/*.bin') != '' && hashFiles('site/assets/.our-world-music-part-039.bin') != '' }}
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p site/assets
-          cat .github/music-chunks/*.b64 site/assets/.our-world-music-part-039.b64 | base64 --decode > site/assets/our-world.m4a
+          cat .github/music-chunks/*.bin site/assets/.our-world-music-part-039.bin > site/assets/our-world.m4a
           test -s site/assets/our-world.m4a
           rm -rf .github/music-chunks
-          rm -f site/assets/.our-world-music-part-039.b64
+          rm -f site/assets/.our-world-music-part-039.bin
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A -- .github/music-chunks site/assets/our-world.m4a site/assets/.our-world-music-part-039.b64
+          git add -A -- .github/music-chunks site/assets/our-world.m4a site/assets/.our-world-music-part-039.bin
           if ! git diff --cached --quiet; then
             git commit -m "Add supplied looping website soundtrack"
             git push
