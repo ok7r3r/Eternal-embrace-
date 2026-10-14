@@ -100,37 +100,9 @@ jobs:
           PY
 
       - name: Resize and regenerate lightweight WebP images
-        env:
-          LANTERN_BRIDGE_URL: "https://dnznrvs05pmza.cloudfront.net/gemini/gemini-3.1-flash-image/images/a43872db-715d-4f0c-877a-9abe6b9b7a76/da507db9-67f1-4653-bc78-fea24a840777/One_standalone_WIDE_LANDSCAPE_16_9_background_illustration_f.png?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiMzFjMTgyNDhmOWIwMWNkMSIsImJ1Y2tldCI6InJ1bndheS10YXNrLWFydGlmYWN0cyIsImV4cCI6MTc5MjA3NzM4NH0.XQo8x0z90WkpFy3jVu53ebynspk1siuNh2-jwu3zMs4"
         shell: bash
         run: |
           python -c "from PIL import Image" 2>/dev/null || python -m pip install --disable-pip-version-check Pillow
-          python - <<'PY'
-          from io import BytesIO
-          import os
-          from pathlib import Path
-          import urllib.request
-          from PIL import Image, ImageOps
-
-          target = Path("site/assets/art/moonlit-lantern-bridge.jpg")
-          if target.is_file() and target.stat().st_size > 60000:
-              print("The generated Lantern Bridge source is already committed; keeping the local copy.")
-          else:
-              url = os.environ.get("LANTERN_BRIDGE_URL", "")
-              if not url:
-                  raise SystemExit("Missing LANTERN_BRIDGE_URL for initial scenic asset import.")
-              request = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-              with urllib.request.urlopen(request, timeout=60) as response:
-                  payload = response.read()
-              if len(payload) < 60000:
-                  raise SystemExit(f"Scenery download looked incomplete ({len(payload)} bytes).")
-              target.parent.mkdir(parents=True, exist_ok=True)
-              with Image.open(BytesIO(payload)) as opened:
-                  image = ImageOps.exif_transpose(opened).convert("RGB")
-                  image.thumbnail((1600, 1000), Image.Resampling.LANCZOS)
-                  image.save(target, "JPEG", quality=90, optimize=True, progressive=True)
-              print(f"Imported the generated scenery as a local optimized source ({target.stat().st_size:,} bytes).")
-          PY
           python - <<'PY'
           from pathlib import Path
           from PIL import Image, ImageOps
@@ -150,7 +122,7 @@ jobs:
               count += 1
               source_bytes += source.stat().st_size
               webp_bytes += target.stat().st_size
-          print(f"Optimised {count} images to a maximum 1440px edge; source bytes {source_bytes:,}; WebP bytes {webp_bytes:,}.")
+          print(f"Optimised {count} raster images to a maximum 1440px edge; source bytes {source_bytes:,}; WebP bytes {webp_bytes:,}.")
           PY
 
       - name: Commit website source and media to the repository
