@@ -164,6 +164,32 @@ main{position:relative;isolation:isolate}.section{position:relative;padding:clam
  .panel-image-window:before{filter:blur(8px) brightness(.45)!important}
 }
 
+
+/* Content-aware panel fit: photographs breathe wide; chat captures remain tall and readable. */
+#panelsSetA .revolve-panel{width:min(640px,74vw);height:min(520px,64svh);min-height:320px}
+#panelsSetB .revolve-panel{width:min(430px,50vw);height:min(680px,76svh);min-height:400px}
+#panelsSetB .panel-image-window{inset:12px 12px 94px}
+#panelsSetB .panel-caption strong{font-size:clamp(18px,2vw,25px);line-height:1.05;max-width:21ch;text-wrap:pretty}
+#panelsSetB .panel-caption small{letter-spacing:.13em}
+#panelsSetB .panel-count{font-size:9px}
+@media(max-width:800px){
+ #panelsSetA .revolve-panel{width:min(470px,76vw);height:min(480px,62svh);min-height:280px}
+ #panelsSetB .revolve-panel{width:min(360px,74vw);height:min(600px,75svh);min-height:350px}
+ #panelsSetB .panel-image-window{inset:8px 8px 88px}
+ #panelsSetB .panel-caption strong{font-size:clamp(17px,4vw,22px);max-width:20ch}
+}
+@media(max-width:420px){
+ #panelsSetA .revolve-panel{width:calc(100vw - 74px);height:min(420px,54svh);min-width:240px;min-height:260px}
+ #panelsSetB .revolve-panel{width:calc(100vw - 82px);height:min(560px,68svh);min-width:240px;min-height:320px}
+ #panelsSetA .panel-image-window{inset:7px 7px 82px}
+ #panelsSetB .panel-image-window{inset:7px 7px 84px}
+ #panelsSetB .panel-caption strong{font-size:17px}
+}
+@media(max-height:650px){
+ #panelsSetA .revolve-panel{height:min(420px,58svh);min-height:250px}
+ #panelsSetB .revolve-panel{height:min(520px,68svh);min-height:300px}
+}
+
 </style>
 </head>
 <body>
@@ -259,13 +285,13 @@ function renderGalleryAt(key,position){
   const small=innerWidth<700;
   r.panels.forEach((panel,i)=>{
    const delta=i-position,abs=Math.abs(delta),phase=delta*1.35,side=Math.sin(phase),turn=Math.min(1,abs*2);
-   let x=side*(small?100:218)*turn,y=delta*(small?43:58),z=-abs*(small?108:164);
+   let x=side*(small?(key==='setB'?112:124):(key==='setB'?288:286))*turn,y=delta*(small?43:58),z=-abs*(small?108:164);
    let rotateY=side*(small?43:56)*turn,rotateZ=side*(small?2.4:3.1)*turn+Math.sin(phase*.72)*(small?1.2:1.8),rotateX=Math.cos(phase)*(small?2.2:3.2)*turn;
    let scale=Math.max(small?.72:.75,1-abs*(small?.16:.14));
    if(reducedMotion){x=0;y=0;z=-abs*20;rotateY=0;rotateZ=0;rotateX=0;scale=Math.max(.9,1-abs*.04);}
    panel.style.transform='translate3d('+x.toFixed(2)+'px,'+y.toFixed(2)+'px,'+z.toFixed(2)+'px) rotateX('+rotateX.toFixed(2)+'deg) rotateY('+rotateY.toFixed(2)+'deg) rotateZ('+rotateZ.toFixed(2)+'deg) scale('+scale.toFixed(3)+')';
    panel.style.opacity=abs>2.2?'0':String(Math.max(.025,1-abs*.64));
-   panel.style.filter='none';
+   
    panel.style.zIndex=String(30-Math.round(abs*4));panel.style.pointerEvents=abs<.49?'auto':'none';panel.style.willChange=abs<2.5?'transform, opacity':'auto';
    panel.classList.toggle('active',abs<.49);panel.setAttribute('aria-hidden',String(abs>=.49));panel.querySelector('.panel-open').tabIndex=abs<.49?0:-1;
    const imageWindow=panel.querySelector('.panel-image-window');
