@@ -1,0 +1,6 @@
+[build]
+  command = "mkdir -p public_site && unzip -o Anisha_Netlify_Deploy_Package.zip -d public_site"
+  publish = "public_site"
+
+[build.environment]
+  NODE_VERSION = "20"
