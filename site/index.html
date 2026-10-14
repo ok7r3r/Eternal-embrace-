@@ -265,7 +265,7 @@ function renderGalleryAt(key,position){
    if(reducedMotion){x=0;y=0;z=-abs*20;rotateY=0;rotateZ=0;rotateX=0;scale=Math.max(.9,1-abs*.04);}
    panel.style.transform='translate3d('+x.toFixed(2)+'px,'+y.toFixed(2)+'px,'+z.toFixed(2)+'px) rotateX('+rotateX.toFixed(2)+'deg) rotateY('+rotateY.toFixed(2)+'deg) rotateZ('+rotateZ.toFixed(2)+'deg) scale('+scale.toFixed(3)+')';
    panel.style.opacity=abs>2.2?'0':String(Math.max(.025,1-abs*.64));
-   panel.style.filter=abs>.5?'saturate('+Math.max(.62,1-abs*.14).toFixed(3)+') brightness('+Math.max(.68,1-abs*.1).toFixed(3)+')':'none';
+   panel.style.filter='none';
    panel.style.zIndex=String(30-Math.round(abs*4));panel.style.pointerEvents=abs<.49?'auto':'none';panel.style.willChange=abs<2.5?'transform, opacity':'auto';
    panel.classList.toggle('active',abs<.49);panel.setAttribute('aria-hidden',String(abs>=.49));panel.querySelector('.panel-open').tabIndex=abs<.49?0:-1;
    const imageWindow=panel.querySelector('.panel-image-window');
