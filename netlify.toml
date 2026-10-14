@@ -1,6 +1,0 @@
-[build]
-  command = "mkdir -p public_site && unzip -o Anisha_Netlify_Deploy_Package.zip -d public_site && rm -f public_site/netlify.toml public_site/README.txt public_site/NETLIFY_DEPLOY_README.txt"
-  publish = "public_site"
-
-[build.environment]
-  NODE_VERSION = "20"
