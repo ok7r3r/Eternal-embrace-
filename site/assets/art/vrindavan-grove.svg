@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+<defs>
+ <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#06151e"/><stop offset=".45" stop-color="#0b2c31"/><stop offset="1" stop-color="#103f3e"/></linearGradient>
+ <radialGradient id="moonAura"><stop stop-color="#d9efd0" stop-opacity=".46"/><stop offset=".35" stop-color="#b9e9d2" stop-opacity=".16"/><stop offset="1" stop-color="#a4eedb" stop-opacity="0"/></radialGradient>
+ <linearGradient id="moon"><stop stop-color="#fff0c9"/><stop offset=".55" stop-color="#cae8cc"/><stop offset="1" stop-color="#8bbfc0"/></linearGradient>
+ <linearGradient id="water" x2="0" y2="1"><stop stop-color="#245c59"/><stop offset=".45" stop-color="#0a333a"/><stop offset="1" stop-color="#061b27"/></linearGradient>
+ <linearGradient id="temple" x2="1" y2="1"><stop stop-color="#7b9d8a"/><stop offset=".5" stop-color="#315d58"/><stop offset="1" stop-color="#15383d"/></linearGradient>
+ <linearGradient id="stone" x2="0" y2="1"><stop stop-color="#6f8b7d"/><stop offset="1" stop-color="#23494b"/></linearGradient>
+ <radialGradient id="bloom"><stop stop-color="#efd79a"/><stop offset=".6" stop-color="#b5b77e"/><stop offset="1" stop-color="#547c66"/></radialGradient>
+ <g id="star"><path d="M0-5 1.3-1.3 5 0 1.3 1.3 0 5-1.3 1.3-5 0-1.3-1.3Z" fill="#e4f5df"/><circle r="1.3" fill="#fff7d7"/></g>
+ <g id="kadamba"><circle cx="0" cy="0" r="83" fill="#153c35"/><circle cx="-48" cy="-34" r="56" fill="#205143"/><circle cx="42" cy="-39" r="61" fill="#214d40"/><circle cx="54" cy="19" r="52" fill="#174337"/><circle cx="-25" cy="28" r="63" fill="#1c493d"/><g fill="url(#bloom)" opacity=".85"><circle cx="-51" cy="-29" r="15"/><circle cx="-19" cy="-49" r="12"/><circle cx="18" cy="-25" r="16"/><circle cx="49" cy="-42" r="12"/><circle cx="36" cy="13" r="13"/><circle cx="-20" cy="24" r="14"/><circle cx="-59" cy="10" r="10"/><circle cx="3" cy="51" r="10"/><circle cx="72" cy="-5" r="9"/><circle cx="-7" cy="-77" r="9"/></g></g>
+ <g id="lotus"><path d="M0 0Q-28-30-24-49Q-2-39 0 0Q2-42 24-49Q28-22 0 0Q-36-17-41-4Q-19 11 0 0Q19 11 41-4Q36-17 0 0Z" fill="#d8a8c6"/><path d="M0 1Q-8-20 0-34Q9-17 0 1Z" fill="#f7dfcf"/><ellipse cy="0" rx="17" ry="6" fill="#d9b968"/></g>
+</defs>
+<rect width="1920" height="1080" fill="url(#sky)"/>
+<circle cx="1482" cy="247" r="300" fill="url(#moonAura)"/>
+<circle cx="1482" cy="247" r="112" fill="url(#moon)" opacity=".93"/>
+<circle cx="1482" cy="247" r="126" fill="none" stroke="#d6f3d7" stroke-opacity=".23" stroke-width="2"/>
+<circle cx="1482" cy="247" r="151" fill="none" stroke="#c5ecdc" stroke-opacity=".1"/>
+<g fill="#e9eed5" opacity=".75"><circle cx="1620" cy="177" r="4"/><circle cx="1438" cy="205" r="12" opacity=".2"/><circle cx="1517" cy="286" r="8" opacity=".15"/><circle cx="1389" cy="274" r="5" opacity=".25"/></g>
+<g opacity=".7"><use href="#star" x="208" y="155"/><use href="#star" x="470" y="257" transform="translate(470 257) scale(.6) translate(-470 -257)"/><use href="#star" x="1094" y="143"/><use href="#star" x="1290" y="370"/><use href="#star" x="1708" y="360"/><use href="#star" x="1840" y="255"/><use href="#star" x="1020" y="347"/><use href="#star" x="765" y="196"/></g>
+<g fill="#b7e4cb" opacity=".68"><circle cx="317" cy="326" r="2"/><circle cx="550" cy="173" r="2"/><circle cx="865" cy="253" r="2.5"/><circle cx="1119" cy="285" r="2"/><circle cx="1761" cy="145" r="2"/><circle cx="1581" cy="414" r="2"/><circle cx="1204" cy="190" r="1.5"/><circle cx="1344" cy="135" r="2"/></g>
+<path d="M0 620Q230 548 420 610T830 584T1220 583T1590 570T1920 600V850H0Z" fill="#0b3434" opacity=".72"/>
+<path d="M0 710Q300 639 540 693T1030 670T1420 682T1920 650V861H0Z" fill="#102f32"/>
+<!-- far ghats and grove -->
+<g opacity=".84" fill="#163934"><path d="M0 680L0 602 38 602 38 577 58 577 58 596 79 596 79 565 96 565 96 612 123 612 123 582 144 582 144 680Z"/><path d="M290 694V632h42v-30h22v30h33v-57h21v57h42v62Z"/></g>
+<!-- ancient north-Indian temple, shikhara and lit arches -->
+<g stroke="#87ab94" stroke-opacity=".48" stroke-width="3" stroke-linejoin="round">
+ <path d="M1250 700L1275 650 1294 634 1310 583 1332 563 1350 518 1376 489 1394 439 1420 406 1445 439 1462 489 1487 518 1505 563 1527 583 1542 634 1563 650 1588 700Z" fill="url(#temple)"/>
+ <path d="M1386 449L1420 380 1454 449Z" fill="#456f64"/><path d="M1410 381L1420 339 1430 381Z" fill="#6c9581"/>
+ <path d="M1420 338V318" stroke="#d8d5a1" stroke-width="4"/><circle cx="1420" cy="309" r="5" fill="#f3de9f" stroke="none"/>
+ <path d="M1260 693V650Q1289 615 1318 650V693M1522 693V650Q1551 615 1580 650V693" fill="#0b252c"/>
+ <path d="M1347 698V618Q1379 578 1411 618V698M1429 698V618Q1461 578 1493 618V698" fill="#0a2429"/>
+ <path d="M1393 699V603Q1420 563 1447 603V699" fill="#08252b"/>
+ <path d="M1202 705V657Q1224 634 1246 657V705M1592 705V657Q1614 634 1636 657V705" fill="#163d3a"/>
+</g>
+<g fill="#f1d8a0" opacity=".8"><circle cx="1300" cy="665" r="4"/><circle cx="1358" cy="646" r="4"/><circle cx="1480" cy="646" r="4"/><circle cx="1540" cy="665" r="4"/><circle cx="1420" cy="655" r="5"/></g>
+<!-- kadamba tree, branches and gold blossoms -->
+<g stroke-linecap="round" stroke-linejoin="round"><path d="M1845 860Q1780 700 1748 528T1645 327M1772 659Q1834 565 1898 520M1715 530Q1642 490 1600 430" fill="none" stroke="#16392f" stroke-width="54"/><path d="M1845 860Q1780 700 1748 528T1645 327M1772 659Q1834 565 1898 520" fill="none" stroke="#416b4c" stroke-opacity=".55" stroke-width="12"/><use href="#kadamba" x="1642" y="340"/><use href="#kadamba" x="1741" y="396"/><use href="#kadamba" x="1830" y="469"/><use href="#kadamba" x="1880" y="556"/><use href="#kadamba" x="1678" y="478" transform="translate(1678 478) scale(.7) translate(-1678 -478)"/></g>
+<!-- Yamuna: luminous but quiet -->
+<path d="M0 756Q260 719 490 767T955 761T1375 748T1920 758V1080H0Z" fill="url(#water)"/>
+<path d="M0 773Q260 739 490 781T955 774T1375 764T1920 775" fill="none" stroke="#a2d9c2" stroke-opacity=".4" stroke-width="3"/>
+<g fill="none" stroke-linecap="round"><path d="M1310 781Q1450 805 1580 782T1845 786" stroke="#f0d9a1" stroke-opacity=".34" stroke-width="5"/><path d="M1370 822Q1510 842 1650 821T1890 829" stroke="#c6f2d6" stroke-opacity=".38" stroke-width="3"/><path d="M1200 879Q1390 860 1540 883T1910 882" stroke="#78c9bd" stroke-opacity=".35" stroke-width="4"/><path d="M1430 927Q1540 911 1690 933T1910 928" stroke="#e9c8bd" stroke-opacity=".3" stroke-width="3"/><path d="M1300 986Q1430 971 1555 991T1850 987" stroke="#92dac9" stroke-opacity=".3" stroke-width="3"/><path d="M1520 1034Q1640 1023 1750 1037T1918 1030" stroke="#f1d9a1" stroke-opacity=".25" stroke-width="3"/></g>
+<!-- stepped ghat dissolving into water -->
+<path d="M1120 720H1650L1740 792H1220Z" fill="url(#stone)"/>
+<path d="M1120 720H1650L1674 738H1140Z" fill="#a0b79a" opacity=".48"/>
+<g fill="none" stroke="#b6c8a6" stroke-opacity=".38" stroke-width="3"><path d="M1150 746H1680L1700 763H1172"/><path d="M1180 773H1712"/><path d="M1218 800H1745"/></g>
+<g fill="#efd9a2" opacity=".68"><circle cx="1265" cy="717" r="5"/><circle cx="1620" cy="717" r="5"/><circle cx="1700" cy="780" r="4"/></g>
+<!-- small, anonymous girl and black cat watching the river -->
+<g transform="translate(1513 694)">
+ <path d="M-14 37Q-22 12-9-5L6-9Q18 8 15 37L35 76Q8 87-29 75Z" fill="#c29ab8"/>
+ <path d="M-11 7Q-25-13-8-26Q11-33 17-12L10 12Z" fill="#101b25"/>
+ <circle cx="1" cy="-20" r="13" fill="#dfb9a3"/>
+ <path d="M-14-19Q-14-42 6-40Q23-32 15-8L7-20L-5-27Z" fill="#111c23"/>
+ <path d="M-23 26Q-49 35-56 50M12 27Q32 36 36 51" fill="none" stroke="#d8b5a7" stroke-width="6" stroke-linecap="round"/>
+ <path d="M-25 75L-47 90M26 75L48 89" fill="none" stroke="#d8b5a7" stroke-width="7" stroke-linecap="round"/>
+</g>
+<g transform="translate(1576 779)" stroke="#060f18" stroke-linejoin="round"><path d="M-22 9Q-31-12-17-17L-10-34L0-24L10-34L16-14Q31-3 23 12Z" fill="#08121b" stroke-width="3"/><path d="M19 7Q39 2 38-15" fill="none" stroke-width="5" stroke-linecap="round"/><ellipse cx="-9" cy="-3" rx="3" ry="2" fill="#f2df8d" stroke="none"/><ellipse cx="10" cy="-3" rx="3" ry="2" fill="#f2df8d" stroke="none"/></g>
+<g opacity=".72"><use href="#lotus" x="1210" y="987"/><use href="#lotus" x="1830" y="1010" transform="translate(1830 1010) scale(.7) translate(-1830 -1010)"/><ellipse cx="1220" cy="998" rx="36" ry="7" fill="#315f53"/><ellipse cx="1830" cy="1017" rx="31" ry="6" fill="#315f53"/></g>
+<g fill="#d7efce"><circle cx="1138" cy="608" r="3"/><circle cx="1190" cy="578" r="2"/><circle cx="1604" cy="575" r="3"/><circle cx="1660" cy="622" r="2"/><circle cx="1769" cy="710" r="3"/><circle cx="1101" cy="815" r="2"/><circle cx="1812" cy="864" r="3"/></g>
+<path d="M0 1040Q240 997 410 1047T850 1034T1100 1068L1100 1080H0Z" fill="#04151e" opacity=".55"/>
+</svg>
