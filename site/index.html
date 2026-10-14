@@ -436,6 +436,76 @@ main{position:relative;isolation:isolate}.section{position:relative;padding:clam
  .gallery-chain .chain-core{animation:none!important}
 }
 
+
+/* The Moonlit Lantern Bridge — original scenic art with restrained, visibility-aware motion. */
+.moonlit-bridge{position:relative;isolation:isolate;min-height:min(920px,100svh);display:grid;place-items:center;overflow:hidden;padding:clamp(100px,12vw,160px) 0 125px;background:#06171b}
+.lantern-bridge-backdrop{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse at 76% 19%,#9ee9d333,transparent 30%),linear-gradient(180deg,#071b1c,#07201f 56%,#061417);background-size:cover;background-position:center 53%;transform:scale(1.015);transform-origin:center}
+.moonlit-bridge:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,#06151991 0%,#06151935 34%,#0615192c 70%,#06151970 100%),linear-gradient(180deg,#06171b70 0%,#06171b13 25%,#06171b19 54%,#06171bed 100%),radial-gradient(ellipse at 50% 52%,#042b2730,transparent 57%)}
+.moonlit-bridge:after{content:"";position:absolute;z-index:1;left:0;right:0;bottom:-1px;height:23%;pointer-events:none;background:linear-gradient(0deg,#061719 0%,#061719cc 24%,transparent 100%)}
+.bridge-content{position:relative;z-index:3;max-width:880px;text-align:center;text-shadow:0 3px 26px #00110f91}
+.bridge-content .eyebrow{color:#d5f6db;text-shadow:0 0 18px #9df3c34f}
+.bridge-content .section-title{max-width:900px;margin:22px auto 24px;text-wrap:balance}
+.bridge-content .section-copy{max-width:590px;margin:0 auto;color:#d1e7dc;line-height:1.95}
+.bridge-actions{justify-content:center;flex-wrap:wrap;gap:12px;margin-top:29px}
+.bridge-actions .button{min-height:46px}
+.bridge-actions #releaseLantern{border-color:#c2f9daa1;background:linear-gradient(120deg,#103a31e8,#08251fe8);box-shadow:0 0 0 1px #9af0c91a,0 0 25px #76dcb42b}
+.bridge-actions #releaseLantern:hover{box-shadow:0 0 0 1px #b7ffd57a,0 0 34px #82f5d64a}
+.bridge-status{min-height:1.6em;margin:18px auto 0;color:#c5e0d2;font-size:10px;letter-spacing:.09em;line-height:1.8;opacity:.83}
+.bridge-atmosphere{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+.bridge-mist{position:absolute;left:-10%;width:120%;height:20%;border-radius:50%;background:linear-gradient(90deg,transparent,#97e9d00d,#cdf8dc2e,#b6e9df12,transparent);opacity:.42;transform:translate3d(0,0,0);animation:bridgeMistDrift 19s ease-in-out infinite alternate;animation-play-state:paused}
+.bridge-mist-one{bottom:20%;}.bridge-mist-two{bottom:32%;opacity:.28;animation-duration:26s;animation-direction:alternate-reverse}
+.bridge-thread{position:absolute;left:50%;bottom:29%;width:min(84%,1000px);height:2px;transform:translate3d(-50%,0,0) rotate(-3deg);transform-origin:center;background:linear-gradient(90deg,transparent,#aaffcdad 18%,#9ff6e3 42%,#eebbe0 62%,#c9ffb5 82%,transparent);background-size:200% 100%;box-shadow:0 0 15px #90f5d24f;opacity:.64;animation:bridgeThreadShimmer 8s linear infinite;animation-play-state:paused}
+.bridge-water-ripple{position:absolute;bottom:19%;left:50%;width:clamp(80px,12vw,175px);height:22px;border:1px solid #b9f5e177;border-radius:50%;transform:translate3d(-50%,0,0) scale(.45);opacity:0;box-shadow:0 0 15px #83e8cd24;animation:bridgeRipple 6s ease-out infinite;animation-play-state:paused}
+.ripple-two{animation-delay:-2s;left:43%;bottom:17%}.ripple-three{animation-delay:-4s;left:57%;bottom:21%}
+.bridge-firefly{position:absolute;width:4px;height:4px;border-radius:50%;background:#e6ffd1;box-shadow:0 0 9px 3px #b7ffd99c;opacity:0;animation:bridgeFireflyFloat 8s ease-in-out infinite;animation-play-state:paused}
+.firefly-one{left:12%;top:45%;animation-delay:-1.5s}.firefly-two{left:24%;top:26%;animation-delay:-5s}.firefly-three{left:78%;top:40%;animation-delay:-3s}.firefly-four{left:88%;top:58%;animation-delay:-6.2s}.firefly-five{left:63%;top:24%;animation-delay:-2.2s}.firefly-six{left:38%;top:68%;animation-delay:-4.3s}
+.bridge-floating-light{position:absolute;bottom:23%;left:var(--light-x);display:grid;place-items:center;width:24px;height:31px;border:1px solid #ffe8a7a1;border-radius:48% 48% 42% 42%;background:radial-gradient(ellipse at 50% 40%,#fff7c7ef 0%,#b9ffdc76 33%,#6ff0cb0b 76%);color:#f4ffce;font-size:13px;line-height:1;text-shadow:0 0 9px #efffc1;box-shadow:0 0 9px #c2f7c9a1,0 0 24px #b7f5cf59;opacity:.68;transform:translate3d(0,0,0);animation:bridgeLanternBob 6.8s ease-in-out infinite;animation-play-state:paused}
+.lantern-one{--light-x:14%;animation-delay:-1s}.lantern-two{--light-x:31%;bottom:19%;animation-delay:-3.7s}.lantern-three{--light-x:72%;bottom:21%;animation-delay:-2.5s}.lantern-four{--light-x:86%;animation-delay:-5s}
+.bridge-embers{position:absolute;inset:0;overflow:hidden}
+.bridge-released-lantern{position:absolute;left:var(--ember-x);bottom:24%;font-size:24px;line-height:1;color:#f5ffd1;text-shadow:0 0 9px #e7ffd5,0 0 22px #a2f4d5,0 0 40px #f3bfdc;opacity:0;transform:translate3d(0,0,0) scale(.6);animation:bridgeLanternRise 6.3s cubic-bezier(.2,.65,.25,1) forwards;animation-play-state:paused}
+.bridge-released-lantern.is-still{opacity:.95;transform:translate3d(0,-16px,0) scale(1)}
+.moonlit-bridge.is-alive .lantern-bridge-backdrop{animation:bridgeSceneBreath 34s ease-in-out infinite alternate;will-change:transform}
+.moonlit-bridge.is-alive .bridge-mist,.moonlit-bridge.is-alive .bridge-thread,.moonlit-bridge.is-alive .bridge-water-ripple,.moonlit-bridge.is-alive .bridge-firefly,.moonlit-bridge.is-alive .bridge-floating-light,.moonlit-bridge.is-alive .bridge-released-lantern{animation-play-state:running}
+@keyframes bridgeSceneBreath{0%{transform:scale(1.015) translate3d(-.3%,0,0)}100%{transform:scale(1.055) translate3d(.3%,0,0)}}
+@keyframes bridgeMistDrift{0%{transform:translate3d(-3%,0,0) scaleX(.94);opacity:.16}100%{transform:translate3d(3%,-8px,0) scaleX(1.04);opacity:.52}}
+@keyframes bridgeThreadShimmer{to{background-position:200% 0;opacity:.34}}
+@keyframes bridgeRipple{0%{transform:translate3d(-50%,0,0) scale(.4);opacity:0}22%{opacity:.48}100%{transform:translate3d(-50%,0,0) scale(2.2);opacity:0}}
+@keyframes bridgeFireflyFloat{0%,100%{opacity:0;transform:translate3d(0,10px,0) scale(.65)}22%,72%{opacity:.88}52%{transform:translate3d(18px,-28px,0) scale(1.2)}}
+@keyframes bridgeLanternBob{0%,100%{opacity:.42;transform:translate3d(0,8px,0) rotate(-4deg)}50%{opacity:.9;transform:translate3d(0,-16px,0) rotate(4deg)}}
+@keyframes bridgeLanternRise{0%{opacity:0;transform:translate3d(0,0,0) scale(.65)}12%{opacity:1}100%{opacity:0;transform:translate3d(var(--ember-drift),-76svh,0) scale(1.5)}}
+@media(max-width:800px){
+ .moonlit-bridge{min-height:85svh;padding:100px 0 115px}
+ .lantern-bridge-backdrop{background-position:58% center;transform:scale(1.02)}
+ .moonlit-bridge:before{background:linear-gradient(90deg,#0615198c,#06151941 55%,#06151973),linear-gradient(180deg,#06171b66 0%,#06171b19 30%,#06171bdf 100%)}
+ .bridge-content{max-width:calc(100% - 26px)}
+ .bridge-content .section-title{font-size:clamp(38px,9.5vw,68px);line-height:.98}
+ .bridge-content .section-copy{max-width:510px;font-size:13px;line-height:1.9}
+ .bridge-thread{width:94%;bottom:24%;opacity:.5}
+ .bridge-water-ripple{bottom:14%;width:92px}
+ .ripple-two{left:35%;bottom:12%}.ripple-three{left:65%;bottom:16%}
+ .bridge-floating-light{transform:scale(.82);bottom:19%}
+ .lantern-two,.lantern-three{bottom:16%}
+ .bridge-firefly{width:3px;height:3px;box-shadow:0 0 6px 2px #b7ffd96b}
+ .bridge-status{font-size:9px;max-width:310px}
+}
+@media(max-width:420px){
+ .moonlit-bridge{min-height:82svh;padding:88px 0 95px}
+ .bridge-content .section-title{margin:16px auto 18px;font-size:clamp(34px,9.2vw,47px)}
+ .bridge-content .section-copy{font-size:12px;line-height:1.8}
+ .bridge-actions{gap:9px;margin-top:22px}
+ .bridge-actions .button{width:100%;max-width:320px;justify-content:center}
+ .bridge-thread{bottom:23%;width:96%}
+ .bridge-floating-light{width:18px;height:24px;font-size:10px}
+ .bridge-released-lantern{font-size:20px}
+}
+.low-bandwidth .bridge-mist{opacity:.12}
+.low-bandwidth .bridge-firefly:nth-of-type(n+5){display:none}
+@media(prefers-reduced-motion:reduce){
+ .moonlit-bridge *, .moonlit-bridge *:before, .moonlit-bridge *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+ .lantern-bridge-backdrop{transform:none!important}
+ .bridge-released-lantern.is-still{opacity:.95!important;transform:translate3d(0,-10px,0) scale(1)!important}
+}
+
 </style>
 </head>
 <body>
@@ -464,6 +534,28 @@ main{position:relative;isolation:isolate}.section{position:relative;padding:clam
 <section class="gallery-world alt" id="set-b" aria-labelledby="setBTitle" data-collection="setB"><div class="gallery-bridge-message set-b-entry-message" id="setBEntryMessage" aria-label="Where our universe began"><span class="bridge-butterfly" aria-hidden="true">✧</span><span class="bridge-text">Where our universe began</span><span class="bridge-butterfly" aria-hidden="true">✧</span></div><div class="gallery-intro"><span class="eyebrow">Set B · little fragments of us</span><h2 class="section-title" id="setBTitle">Words that became<br><em>our own universe.</em></h2><p class="section-copy">A trail through the conversations and little corners you wanted to keep. Floral details live around each image, never over the words.</p></div><div class="gallery-scroll" id="scrollSetB" style="--items:12"><div class="gallery-sticky"><div class="gallery-stage" id="stageSetB"><div class="gallery-spine"></div><div class="panel-thread"></div><div id="panelsSetB"></div></div><div class="gallery-progress-text" id="progressSetB">MEMORY 01 / 12 · FOLLOW THE THREAD</div><div class="panel-controls"><button class="panel-arrow" id="prevSetB" aria-label="Previous Set B memory" type="button">←</button><div class="panel-dots" id="dotsSetB" aria-label="Choose Set B memory"></div><button class="panel-arrow" id="nextSetB" aria-label="Next Set B memory" type="button">→</button></div></div><div id="spacersSetB"></div></div><div class="gallery-footer">The luminous strings lead on · <span>tap a screenshot to read it larger</span></div></section>
 <section class="section letter-section letter-unsealed" id="letter" aria-labelledby="letterTitle"><span class="letter-ornament left" aria-hidden="true">❀</span><span class="letter-ornament right" aria-hidden="true">✿</span><div class="wrap"><header class="section-head"><span class="eyebrow">The letter beneath the moon</span><h2 class="section-title" id="letterTitle">For the soul<br><em>I hold dear.</em></h2><p class="section-copy">A few words from my heart, placed gently beneath a little moonlight. Take all the time you need.</p></header><div class="letter-paper" id="letterPaper"><div class="letter-topline">A letter written beneath the same sky</div><h3 class="letter-salutation">To my Radhe, my most beautiful forever, ♡</h3><div class="letter-body" id="letterBody"></div><div class="letter-signoff" id="letterSignoff"></div></div><div class="letter-tools"><button class="button" type="button" id="letterToggle">Fold the letter gently</button><button class="button read-whole" type="button" id="readWhole">Read the whole letter</button><a class="button primary" href="#secretWish">Follow the final thread <span class="arrow">↘</span></a></div></div></section>
 <section class="section secret-wish" id="secretWish" aria-labelledby="secretTitle"><div class="wrap"><header class="section-head"><span class="eyebrow">One last little secret</span><h2 class="section-title" id="secretTitle">Connect the lights.<br><em>Plant your own wish.</em></h2><p class="section-copy">The last thread is waiting for you. Tap the lights in order and watch them connect into a tiny constellation. A space for your own extra wish will appear.</p></header><div class="thread-puzzle"><p class="thread-guide" id="threadGuide">Follow the little lights from left to right. Each one adds another luminous thread.</p><div class="thread-nodes" id="threadNodes"><span class="thread-line" aria-hidden="true"></span></div><div class="wish-form" id="wishForm"><label for="extraWish">Your little wish, kept among the flowers</label><p>Write anything you want this garden to remember. This note stays in this browser on this device.</p><textarea id="extraWish" maxlength="800" placeholder="If my heart could whisper one more wish…"></textarea><div class="wish-buttons"><button class="button primary" id="plantWish" type="button">Plant this wish ✦</button><button class="button" id="clearWish" type="button">Clear</button></div></div><div class="planted-wish" id="plantedWish" aria-live="polite"><div class="leaf">✿ ✧ ✿</div><p id="plantedText"></p><div class="wish-buttons"><button class="button" id="editWish" type="button">Edit wish</button><button class="button" id="deleteWish" type="button">Let it go</button></div></div><p class="privacy-note">Saved locally in this browser only · nothing is sent to the creator · clear the wish at any time</p></div></div></section>
+
+<section class="moonlit-bridge" id="lanternBridge" aria-labelledby="lanternBridgeTitle">
+  <div class="lantern-bridge-backdrop" data-scene="lantern-bridge" aria-hidden="true"></div>
+  <div class="bridge-atmosphere" aria-hidden="true">
+    <span class="bridge-mist bridge-mist-one"></span><span class="bridge-mist bridge-mist-two"></span>
+    <span class="bridge-thread"></span>
+    <span class="bridge-water-ripple ripple-one"></span><span class="bridge-water-ripple ripple-two"></span><span class="bridge-water-ripple ripple-three"></span>
+    <i class="bridge-firefly firefly-one"></i><i class="bridge-firefly firefly-two"></i><i class="bridge-firefly firefly-three"></i><i class="bridge-firefly firefly-four"></i><i class="bridge-firefly firefly-five"></i><i class="bridge-firefly firefly-six"></i>
+    <i class="bridge-floating-light lantern-one">✦</i><i class="bridge-floating-light lantern-two">✧</i><i class="bridge-floating-light lantern-three">✦</i><i class="bridge-floating-light lantern-four">✧</i>
+    <div class="bridge-embers" id="bridgeEmbers"></div>
+  </div>
+  <div class="wrap bridge-content">
+    <span class="eyebrow">A little bridge between wishes and forever</span>
+    <h2 class="section-title" id="lanternBridgeTitle">Somewhere between now<br><em>and forever.</em></h2>
+    <p class="section-copy">Across a quiet river, every little light becomes a possibility. No map is needed yet—only a little hope, a path to follow, and room for beautiful tomorrows to bloom.</p>
+    <div class="hero-actions bridge-actions">
+      <button class="button" id="releaseLantern" type="button">Set a lantern adrift <span aria-hidden="true">✦</span></button>
+      <a class="button primary" href="#end">Follow the light <span class="arrow" aria-hidden="true">↘</span></a>
+    </div>
+    <p class="bridge-status" id="bridgeStatus" aria-live="polite">Touch a glowing lantern and let one small light travel onward.</p>
+  </div>
+</section>
 <section class="closing" id="end"><div class="closing-sigil" aria-hidden="true">✧</div><span class="eyebrow">And so the garden keeps glowing</span><h2 class="section-title serif">My eternity,<br><em>still finding you.</em></h2><p>May the moon keep you company, may the flowers find their way back to bloom, and may you always remember how much beauty there is in simply being you.</p><div class="hero-actions"><a class="button primary" href="#home">Return to our moon <span class="arrow">↑</span></a><button class="button" type="button" id="finalPetal">Release one last petal ✿</button></div></section>
 <section class="section final-grove" id="midnightGrove" aria-labelledby="groveTitle"><div class="final-backdrop" data-scene="grove" aria-hidden="true"></div><div class="vrindavan-starfall" id="vrindavanStarfall" aria-hidden="true"></div><div class="wrap final-content"><span class="eyebrow">Vrindavan beneath the moon · our quiet little universe</span><h2 class="section-title" id="groveTitle">Where Vrindavan dreams<br><em>beneath a falling sky.</em></h2><p class="section-copy">In a quiet Vrindavan-inspired forest, a girl and her little black cat sit beneath ancient kadamba trees, watching the full moon and tiny stars fall like blessings through the night.</p><div class="forest-figures" aria-label="Illustrated midnight forest companions"><div class="deer-glyph" aria-hidden="true">🦌</div><div class="cat-companion" role="img" aria-label="A stylized black cat with golden eyes and a blue pendant"><div class="cat-eyes"><i></i><i></i></div><i class="cat-pendant"></i></div><div class="grove-mini-note">A little black cat · a girl · a thousand falling stars</div></div><blockquote class="final-quote">“Let's make every day like a festival and a boundless fun. Even in the harsh times, we'll have fun.”</blockquote><p class="section-copy" style="margin-top:25px">May this little corner of Vrindavan keep one peaceful night just for you — the moon above, the forest breathing softly, and every falling star carrying a wish.</p></div></section>
 </main>
@@ -487,7 +579,8 @@ function toast(message){toastEl.textContent=message;toastEl.classList.add('show'
 function initDeferredSceneArt(){
  const scenes=[
   {el:$('.gate-art'),webp:'assets/art/gate.webp?v=2',fallback:'assets/art/gate.jpg',layers:'linear-gradient(180deg,#081e1b05 10%,#081e1bb1 88%,#06181722)'},
-  {el:$('.final-backdrop'),webp:'assets/art/butterfly-girl-mood.webp?v=2',fallback:'assets/art/butterfly-girl-mood.jpg',layers:'linear-gradient(90deg,#06151ded,#06191d85 42%,#06151dce),linear-gradient(0deg,#06151d 0,transparent 30%,#09191d45)'}
+  {el:$('.final-backdrop'),webp:'assets/art/butterfly-girl-mood.webp?v=2',fallback:'assets/art/butterfly-girl-mood.jpg',layers:'linear-gradient(90deg,#06151ded,#06191d85 42%,#06151dce),linear-gradient(0deg,#06151d 0,transparent 30%,#09191d45)'},
+  {el:$('.lantern-bridge-backdrop'),webp:'assets/art/moonlit-lantern-bridge.webp?v=1',fallback:'assets/art/moonlit-lantern-bridge.jpg',layers:'linear-gradient(180deg,#06181945 0%,#0618191c 45%,#061819df 100%),linear-gradient(90deg,#0618196b,#06181920 52%,#06181969)'}
  ].filter(s=>s.el);
  const canSet=!!(window.CSS&&CSS.supports&&CSS.supports('background-image','image-set(url("a.webp") type("image/webp"),url("a.jpg") type("image/jpeg"))'));
  const loadScene=s=>{if(s.el.dataset.artReady)return;s.el.dataset.artReady='true';const art=canSet?'image-set(url("'+s.webp+'") type("image/webp"),url("'+s.fallback+'") type("image/jpeg"))':'url("'+s.fallback+'")';s.el.style.backgroundImage=s.layers+','+art;};
@@ -495,6 +588,29 @@ function initDeferredSceneArt(){
  else scenes.forEach(loadScene);
 }
 initDeferredSceneArt();
+const lanternBridge=$('#lanternBridge'),bridgeEmbers=$('#bridgeEmbers'),releaseLanternButton=$('#releaseLantern'),bridgeStatus=$('#bridgeStatus');
+if(lanternBridge){
+ let bridgeInView=false;
+ const syncBridgeLife=()=>lanternBridge.classList.toggle('is-alive',bridgeInView&&document.visibilityState==='visible'&&!reducedMotion);
+ if('IntersectionObserver' in window){
+  const bridgeLifeObserver=new IntersectionObserver(entries=>{for(const entry of entries){bridgeInView=entry.isIntersecting;syncBridgeLife();}},{threshold:.03});
+  bridgeLifeObserver.observe(lanternBridge);
+ }else if(!reducedMotion){bridgeInView=true;syncBridgeLife();}
+ document.addEventListener('visibilitychange',syncBridgeLife);
+}
+if(releaseLanternButton&&bridgeEmbers){
+ releaseLanternButton.addEventListener('click',()=>{
+  const ember=document.createElement('span');ember.className='bridge-released-lantern';ember.setAttribute('aria-hidden','true');
+  ember.style.setProperty('--ember-x',(14+Math.random()*72).toFixed(1)+'%');
+  ember.style.setProperty('--ember-drift',(Math.random()*120-60).toFixed(0)+'px');
+  if(reducedMotion)ember.classList.add('is-still');
+  bridgeEmbers.appendChild(ember);
+  while(bridgeEmbers.children.length>8)bridgeEmbers.firstElementChild.remove();
+  if(bridgeStatus)bridgeStatus.textContent='One small light is travelling into all the tomorrows still waiting to bloom.';
+  toast('A little lantern is on its way. ✦');
+  window.setTimeout(()=>ember.remove(),reducedMotion?2600:6800);
+ });
+}
 const starfallHost=$('#vrindavanStarfall');
 if(starfallHost&&!reducedMotion){
  const starCount=lowBandwidthMode||lowPowerDevice?8:16;
