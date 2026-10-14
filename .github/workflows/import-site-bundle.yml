@@ -60,6 +60,7 @@ jobs:
           required.update(f"assets/set-a/{name}" for name in set_a)
           required.update(f"assets/set-b/{name}" for name in set_b)
           required.update(f"assets/art/{name}" for name in art)
+          required.add("assets/art/moonlit-lantern-bridge.svg")
 
           site_is_complete = target.is_dir() and all(
               (target / name).is_file() for name in required
@@ -96,7 +97,7 @@ jobs:
           missing_after = [name for name in required if not (target / name).is_file()]
           if missing_after:
               raise SystemExit("Required site files missing: " + ", ".join(sorted(missing_after)))
-          print("Verified the HTML, JavaScript, art, 8 Set A originals and 12 Set B screenshots.")
+          print("Verified the HTML, JavaScript, Moonlit Lantern Bridge SVG, art, 8 Set A originals and 12 Set B screenshots.")
           PY
 
       - name: Resize and regenerate lightweight WebP images
