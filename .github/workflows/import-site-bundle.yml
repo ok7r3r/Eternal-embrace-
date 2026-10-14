@@ -1,33 +1,45 @@
-name: Import website bundle and memory images
+name: Import site bundle and publish GitHub Pages
 
 on:
   push:
     paths:
-      - "Anisha_Netlify_Deploy_Package.zip"
+      - "Anisha_GitHub_Pages_Package.zip"
   workflow_dispatch:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
 
 jobs:
-  expand-site:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Validate and expand the complete website bundle
+      - name: Validate and extract the complete static site
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path, PurePosixPath
           from zipfile import ZipFile
+          import shutil
 
-          archive = Path("Anisha_Netlify_Deploy_Package.zip")
+          archive = Path("Anisha_GitHub_Pages_Package.zip")
           if not archive.is_file():
-              raise SystemExit("Missing Anisha_Netlify_Deploy_Package.zip at repository root.")
+              raise SystemExit(
+                  "Upload Anisha_GitHub_Pages_Package.zip to the repository root first."
+              )
 
           set_a = [
               "1000273785.jpg", "1000273788.jpg", "1000269536.jpg",
@@ -43,44 +55,63 @@ jobs:
 
           with ZipFile(archive) as bundle:
               names = set(bundle.namelist())
-              required = {"index.html", "content.js"}
+              required = {"index.html", "content.js", ".nojekyll"}
               required.update(f"assets/set-a/{name}" for name in set_a)
               required.update(f"assets/set-b/{name}" for name in set_b)
               missing = sorted(required - names)
               if missing:
-                  raise SystemExit("Bundle is missing required website/media files: " + ", ".join(missing))
+                  raise SystemExit(
+                      "The package is missing required site/gallery files: "
+                      + ", ".join(missing)
+                  )
+
+              target = Path("site")
+              if target.exists():
+                  shutil.rmtree(target)
+              target.mkdir(parents=True)
 
               for item in bundle.infolist():
                   if item.is_dir():
                       continue
                   rel = PurePosixPath(item.filename)
                   if rel.is_absolute() or ".." in rel.parts:
-                      raise SystemExit("Unsafe archive path rejected: " + item.filename)
-
-                  # Keep the repository-level deployment configuration and guide.
-                  if str(rel) in {
-                      "netlify.toml",
-                      "README.txt",
-                      "NETLIFY_DEPLOY_README.txt",
-                  }:
-                      continue
-
-                  destination = Path(*rel.parts)
+                      raise SystemExit("Unsafe ZIP path rejected: " + item.filename)
+                  # The validated archive is the whole deployable site.
+                  destination = target.joinpath(*rel.parts)
                   destination.parent.mkdir(parents=True, exist_ok=True)
                   destination.write_bytes(bundle.read(item))
 
-          print("Expanded website source and verified all 8 Set A + 12 Set B originals.")
+          # Verify the extracted files before committing or publishing.
+          missing_after = [str(Path("site") / f"assets/set-a/{name}") for name in set_a
+                           if not (Path("site") / f"assets/set-a/{name}").is_file()]
+          missing_after += [str(Path("site") / f"assets/set-b/{name}") for name in set_b
+                            if not (Path("site") / f"assets/set-b/{name}").is_file()]
+          if missing_after:
+              raise SystemExit("Extracted gallery files missing: " + ", ".join(missing_after))
+          print("Verified index.html, content.js, 8 Set A originals and 12 Set B screenshots.")
           PY
 
-      - name: Commit site files and images
+      - name: Commit website source and media to the repository
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html content.js _headers assets
-          if git diff --cached --quiet; then
-            echo "No site files changed."
-            exit 0
+          git add site
+          if ! git diff --cached --quiet; then
+            git commit -m "Add complete birthday website and original gallery media"
+            git push
+          else
+            echo "Site files are already up to date."
           fi
-          git commit -m "Import complete birthday website and original gallery images"
-          git push
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload static website artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+      - name: Publish website
+        id: deployment
+        uses: actions/deploy-pages@v4
