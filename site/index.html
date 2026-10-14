@@ -506,6 +506,36 @@ main{position:relative;isolation:isolate}.section{position:relative;padding:clam
  .bridge-released-lantern.is-still{opacity:.95!important;transform:translate3d(0,-10px,0) scale(1)!important}
 }
 
+
+/* Moonlit Lantern Bridge — layered living scenery, with motion activated only while in view. */
+.bridge-aurora{position:absolute;left:-18%;width:136%;height:13%;top:18%;pointer-events:none;opacity:0;background:linear-gradient(90deg,transparent,#6debd31a 24%,#b8f7dc2b 48%,#8ed4ff19 67%,transparent);transform:rotate(-7deg) translate3d(0,0,0);mix-blend-mode:screen}
+.aurora-two{top:31%;left:-12%;opacity:0;transform:rotate(5deg) translate3d(0,0,0);background:linear-gradient(90deg,transparent,#83c6f11b 26%,#f8bfe31b 50%,#8affc31a 72%,transparent)}
+.bridge-petal{position:absolute;z-index:2;top:-8%;left:var(--petal-x);font-style:normal;font-size:clamp(12px,1.6vw,20px);color:#f7d1e8;text-shadow:0 0 8px #edb7d9a6,0 0 18px #dcb0ed40;opacity:0;will-change:transform,opacity}
+.petal-one{--petal-x:13%;--petal-drift:110px;--petal-duration:19s;animation-delay:-5s}
+.petal-two{--petal-x:34%;--petal-drift:-82px;--petal-duration:23s;animation-delay:-13s;font-size:13px;color:#d7f5cf}
+.petal-three{--petal-x:69%;--petal-drift:90px;--petal-duration:21s;animation-delay:-9s}
+.petal-four{--petal-x:87%;--petal-drift:-105px;--petal-duration:25s;animation-delay:-18s;font-size:15px;color:#d7c9ff}
+.moonlit-bridge.is-alive .bridge-aurora{animation:bridgeAuroraDrift 23s ease-in-out infinite alternate;opacity:.7}
+.moonlit-bridge.is-alive .aurora-two{animation:bridgeAuroraDrift 29s ease-in-out infinite alternate-reverse;opacity:.43}
+.moonlit-bridge.is-alive .bridge-petal{animation:bridgePetalFloat var(--petal-duration) ease-in-out infinite;animation-delay:inherit}
+.moonlit-bridge.is-alive .lantern-bridge-backdrop{transform-origin:center;will-change:transform}
+.moonlit-bridge .bridge-content{animation:bridgeContentBreathe 8s ease-in-out infinite alternate;animation-play-state:paused}
+.moonlit-bridge.is-alive .bridge-content{animation-play-state:running}
+@keyframes bridgeAuroraDrift{0%{transform:translate3d(-2%,0,0) rotate(-7deg) scaleX(.96);opacity:.24}100%{transform:translate3d(2%,10px,0) rotate(-4deg) scaleX(1.04);opacity:.72}}
+@keyframes bridgePetalFloat{0%{opacity:0;transform:translate3d(0,-2vh,0) rotate(0) scale(.65)}12%{opacity:.64}38%{transform:translate3d(calc(var(--petal-drift)*.35),27vh,0) rotate(100deg) scale(1)}66%{opacity:.5;transform:translate3d(calc(var(--petal-drift)*-.18),58vh,0) rotate(225deg) scale(.84)}92%,100%{opacity:0;transform:translate3d(var(--petal-drift),98vh,0) rotate(330deg) scale(.7)}}
+@keyframes bridgeContentBreathe{from{transform:translate3d(0,3px,0)}to{transform:translate3d(0,-3px,0)}}
+@media(max-width:800px){
+ .bridge-aurora{height:11%;top:21%;opacity:.34}
+ .bridge-petal{font-size:12px;text-shadow:0 0 5px #edb7d96f}
+ .petal-two,.petal-four{display:none}
+ .moonlit-bridge .bridge-content{animation:none!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .bridge-aurora,.bridge-petal,.moonlit-bridge .bridge-content{animation:none!important;opacity:.16!important;transform:none!important;will-change:auto!important}
+}
+.low-bandwidth .bridge-aurora{display:none}
+.low-bandwidth .bridge-petal:nth-of-type(n+3){display:none}
+
 </style>
 </head>
 <body>
@@ -539,7 +569,9 @@ main{position:relative;isolation:isolate}.section{position:relative;padding:clam
   <div class="lantern-bridge-backdrop" data-scene="lantern-bridge" aria-hidden="true"></div>
   <div class="bridge-atmosphere" aria-hidden="true">
     <span class="bridge-mist bridge-mist-one"></span><span class="bridge-mist bridge-mist-two"></span>
+    <span class="bridge-aurora aurora-one"></span><span class="bridge-aurora aurora-two"></span>
     <span class="bridge-thread"></span>
+    <i class="bridge-petal petal-one" aria-hidden="true">✿</i><i class="bridge-petal petal-two" aria-hidden="true">✿</i><i class="bridge-petal petal-three" aria-hidden="true">✿</i><i class="bridge-petal petal-four" aria-hidden="true">✿</i>
     <span class="bridge-water-ripple ripple-one"></span><span class="bridge-water-ripple ripple-two"></span><span class="bridge-water-ripple ripple-three"></span>
     <i class="bridge-firefly firefly-one"></i><i class="bridge-firefly firefly-two"></i><i class="bridge-firefly firefly-three"></i><i class="bridge-firefly firefly-four"></i><i class="bridge-firefly firefly-five"></i><i class="bridge-firefly firefly-six"></i>
     <i class="bridge-floating-light lantern-one">✦</i><i class="bridge-floating-light lantern-two">✧</i><i class="bridge-floating-light lantern-three">✦</i><i class="bridge-floating-light lantern-four">✧</i>
@@ -580,10 +612,10 @@ function initDeferredSceneArt(){
  const scenes=[
   {el:$('.gate-art'),webp:'assets/art/gate.webp?v=2',fallback:'assets/art/gate.jpg',layers:'linear-gradient(180deg,#081e1b05 10%,#081e1bb1 88%,#06181722)'},
   {el:$('.final-backdrop'),webp:'assets/art/butterfly-girl-mood.webp?v=2',fallback:'assets/art/butterfly-girl-mood.jpg',layers:'linear-gradient(90deg,#06151ded,#06191d85 42%,#06151dce),linear-gradient(0deg,#06151d 0,transparent 30%,#09191d45)'},
-  {el:$('.lantern-bridge-backdrop'),webp:'assets/art/moonlit-lantern-bridge.webp?v=1',fallback:'assets/art/moonlit-lantern-bridge.jpg',layers:'linear-gradient(180deg,#06181945 0%,#0618191c 45%,#061819df 100%),linear-gradient(90deg,#0618196b,#06181920 52%,#06181969)'}
+  {el:$('.lantern-bridge-backdrop'),svg:'assets/art/moonlit-lantern-bridge.svg?v=1',layers:'linear-gradient(180deg,#06181945 0%,#0618191c 45%,#061819df 100%),linear-gradient(90deg,#0618196b,#06181920 52%,#06181969)'}
  ].filter(s=>s.el);
  const canSet=!!(window.CSS&&CSS.supports&&CSS.supports('background-image','image-set(url("a.webp") type("image/webp"),url("a.jpg") type("image/jpeg"))'));
- const loadScene=s=>{if(s.el.dataset.artReady)return;s.el.dataset.artReady='true';const art=canSet?'image-set(url("'+s.webp+'") type("image/webp"),url("'+s.fallback+'") type("image/jpeg"))':'url("'+s.fallback+'")';s.el.style.backgroundImage=s.layers+','+art;};
+ const loadScene=s=>{if(s.el.dataset.artReady)return;s.el.dataset.artReady='true';const art=s.svg?'url("'+s.svg+'")':(canSet?'image-set(url("'+s.webp+'") type("image/webp"),url("'+s.fallback+'") type("image/jpeg"))':'url("'+s.fallback+'")');s.el.style.backgroundImage=s.layers+','+art;};
  if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){const scene=scenes.find(s=>s.el===e.target);if(scene){loadScene(scene);observer.unobserve(e.target);}}}),{rootMargin:'700px 0px'});scenes.forEach(s=>observer.observe(s.el));}
  else scenes.forEach(loadScene);
 }
