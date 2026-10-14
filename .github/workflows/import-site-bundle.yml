@@ -3,15 +3,11 @@ name: Import site bundle and publish GitHub Pages
 on:
   workflow_dispatch:
   push:
-    branches: [main]
-    paths:
-      - 'site/**'
-      - '.github/workflows/import-site-bundle.yml'
-  push:
     branches:
       - main
     paths:
       - 'site/**'
+      - '.github/workflows/import-site-bundle.yml'
 
 permissions:
   contents: write
