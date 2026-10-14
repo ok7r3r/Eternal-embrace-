@@ -1,4 +1,4 @@
-const CACHE_NAME = "anisha-site-v3";
+const CACHE_NAME = "anisha-site-v4";
 const SHELL = ["./", "./content.js"];
 self.addEventListener("install", event => {
  event.waitUntil((async () => {
