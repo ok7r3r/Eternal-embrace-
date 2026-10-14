@@ -101,6 +101,19 @@ jobs:
           print("Verified the HTML, JavaScript, desktop/mobile Moonlit Lantern Bridge SVGs, art, 8 Set A originals and 12 Set B screenshots.")
           PY
 
+      - name: Install optional looping soundtrack
+        shell: bash
+        run: |
+          if [[ -f "our-world.m4a" ]]; then
+            mkdir -p site/assets
+            cp "our-world.m4a" "site/assets/our-world.m4a"
+            echo "Copied the uploaded soundtrack into the published site's assets."
+          elif [[ -f "site/assets/our-world.m4a" ]]; then
+            echo "Using the soundtrack already in site/assets."
+          else
+            echo "No optional soundtrack found; continuing without music."
+          fi
+
       - name: Resize and regenerate lightweight WebP images
         shell: bash
         run: |
