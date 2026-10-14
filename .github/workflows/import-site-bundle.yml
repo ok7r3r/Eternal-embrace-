@@ -99,6 +99,43 @@ jobs:
           print("Verified the HTML, JavaScript, art, 8 Set A originals and 12 Set B screenshots.")
           PY
 
+      - name: Generate optimized WebP images for quicker loading
+        shell: bash
+        run: |
+          python -c "from PIL import Image" 2>/dev/null || python -m pip install --disable-pip-version-check Pillow
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageOps
+          import re
+          assets = Path("site/assets")
+          created = source_bytes = webp_bytes = 0
+          for source in sorted(assets.rglob("*")):
+              if not source.is_file() or source.suffix.lower() not in {".jpg", ".jpeg", ".png"}:
+                  continue
+              target = source.with_suffix(".webp")
+              if not target.exists():
+                  with Image.open(source) as opened:
+                      image = ImageOps.exif_transpose(opened)
+                      if image.mode not in {"RGB", "RGBA"}:
+                          image = image.convert("RGB")
+                      quality = 90 if "set-b" in source.parts else (86 if "set-a" in source.parts else 83)
+                      image.save(target, "WEBP", quality=quality, method=5)
+                  created += 1
+              source_bytes += source.stat().st_size
+              webp_bytes += target.stat().st_size
+          print(f"Created {created} WebP images; source bytes {source_bytes:,}; WebP bytes {webp_bytes:,}.")
+          js_path = Path("site/content.js")
+          js = js_path.read_text(encoding="utf-8")
+          pattern = re.compile(r'src: "(assets/set-[ab]/[^"]+)\.(jpg|jpeg|png)", alt:')
+          def upgrade(match):
+              stem, ext = match.group(1), match.group(2)
+              return f'src: "{stem}.webp", fallback: "{stem}.{ext}", alt:'
+          js, changed = pattern.subn(upgrade, js)
+          if changed:
+              js_path.write_text(js, encoding="utf-8")
+              print(f"Updated {changed} new gallery paths with original fallbacks.")
+          PY
+
       - name: Commit website source and media to the repository
         shell: bash
         run: |
