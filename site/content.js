@@ -1,28 +1,28 @@
 /* Anisha's Enchanted Universe — all personal media paths and copy are editable here. */
 window.SITE_CONTENT = {
   setA: [
-    { src: "assets/set-a/1000273785.webp", fallback: "assets/set-a/1000273785.jpg", alt: "Personal photograph from Set A, memory one", caption: "The first memory in the garden" },
-    { src: "assets/set-a/1000273788.webp", fallback: "assets/set-a/1000273788.jpg", alt: "Personal photograph from Set A, memory two", caption: "A little piece of your light" },
-    { src: "assets/set-a/1000269536.webp", fallback: "assets/set-a/1000269536.jpg", alt: "Personal photograph from Set A, memory three", caption: "A moment worth keeping" },
-    { src: "assets/set-a/1000269530.webp", fallback: "assets/set-a/1000269530.jpg", alt: "Personal photograph from Set A, memory four", caption: "A smile beneath the same sky" },
-    { src: "assets/set-a/1000269512.webp", fallback: "assets/set-a/1000269512.jpg", alt: "Personal photograph from Set A, memory five", caption: "A flower in my universe" },
-    { src: "assets/set-a/1000269616.webp", fallback: "assets/set-a/1000269616.png", alt: "Personal photograph from Set A, memory six", caption: "A glow I hope never fades" },
-    { src: "assets/set-a/1000269497.webp", fallback: "assets/set-a/1000269497.jpg", alt: "Personal photograph from Set A, memory seven", caption: "One more little wonder" },
-    { src: "assets/set-a/1000268857.webp", fallback: "assets/set-a/1000268857.jpg", alt: "Personal photograph from Set A, memory eight", caption: "A little eternity" }
+    { src: "assets/set-a/1000273785.webp?v=2", fallback: "assets/set-a/1000273785.jpg", alt: "Personal photograph from Set A, memory one", caption: "The first memory in the garden" },
+    { src: "assets/set-a/1000273788.webp?v=2", fallback: "assets/set-a/1000273788.jpg", alt: "Personal photograph from Set A, memory two", caption: "A little piece of your light" },
+    { src: "assets/set-a/1000269536.webp?v=2", fallback: "assets/set-a/1000269536.jpg", alt: "Personal photograph from Set A, memory three", caption: "A moment worth keeping" },
+    { src: "assets/set-a/1000269530.webp?v=2", fallback: "assets/set-a/1000269530.jpg", alt: "Personal photograph from Set A, memory four", caption: "A smile beneath the same sky" },
+    { src: "assets/set-a/1000269512.webp?v=2", fallback: "assets/set-a/1000269512.jpg", alt: "Personal photograph from Set A, memory five", caption: "A flower in my universe" },
+    { src: "assets/set-a/1000269616.webp?v=2", fallback: "assets/set-a/1000269616.png", alt: "Personal photograph from Set A, memory six", caption: "A glow I hope never fades" },
+    { src: "assets/set-a/1000269497.webp?v=2", fallback: "assets/set-a/1000269497.jpg", alt: "Personal photograph from Set A, memory seven", caption: "One more little wonder" },
+    { src: "assets/set-a/1000268857.webp?v=2", fallback: "assets/set-a/1000268857.jpg", alt: "Personal photograph from Set A, memory eight", caption: "A little eternity" }
   ],
   setB: [
-    { src: "assets/set-b/1000274618.webp", fallback: "assets/set-b/1000274618.jpg", alt: "Supplied Set B profile screenshot, one", caption: "A familiar little corner of the universe" },
-    { src: "assets/set-b/1000274619.webp", fallback: "assets/set-b/1000274619.jpg", alt: "Supplied Set B profile screenshot, two", caption: "A small detail I remember" },
-    { src: "assets/set-b/1000274620.webp", fallback: "assets/set-b/1000274620.jpg", alt: "Supplied Set B profile screenshot, three", caption: "Bright moon over clouds" },
-    { src: "assets/set-b/1000274621.webp", fallback: "assets/set-b/1000274621.jpg", alt: "Supplied Set B conversation screenshot, four", caption: "The first threads of a conversation" },
-    { src: "assets/set-b/1000274622.webp", fallback: "assets/set-b/1000274622.jpg", alt: "Supplied Set B conversation screenshot, five", caption: "Fragments of a universe" },
-    { src: "assets/set-b/1000274623.webp", fallback: "assets/set-b/1000274623.jpg", alt: "Supplied Set B conversation screenshot, six", caption: "A thread that kept unfolding" },
-    { src: "assets/set-b/1000274624.webp", fallback: "assets/set-b/1000274624.jpg", alt: "Supplied Set B conversation screenshot, seven", caption: "The things we said along the way" },
-    { src: "assets/set-b/1000274625.webp", fallback: "assets/set-b/1000274625.jpg", alt: "Supplied Set B screenshot, eight", caption: "A little name, a little promise" },
-    { src: "assets/set-b/1000274465.webp", fallback: "assets/set-b/1000274465.jpg", alt: "Supplied Set B conversation screenshot, nine", caption: "A story shared beneath the same sky" },
-    { src: "assets/set-b/1000274466.webp", fallback: "assets/set-b/1000274466.jpg", alt: "Supplied Set B conversation screenshot, ten", caption: "When the conversation grew deeper" },
-    { src: "assets/set-b/1000274467.webp", fallback: "assets/set-b/1000274467.jpg", alt: "Supplied Set B conversation screenshot, eleven", caption: "One more kept fragment" },
-    { src: "assets/set-b/1000274468.webp", fallback: "assets/set-b/1000274468.jpg", alt: "Supplied Set B conversation screenshot, twelve", caption: "The conversation carries on" }
+    { src: "assets/set-b/1000274618.webp?v=2", fallback: "assets/set-b/1000274618.jpg", alt: "Supplied Set B profile screenshot, one", caption: "A familiar little corner of the universe" },
+    { src: "assets/set-b/1000274619.webp?v=2", fallback: "assets/set-b/1000274619.jpg", alt: "Supplied Set B profile screenshot, two", caption: "A small detail I remember" },
+    { src: "assets/set-b/1000274620.webp?v=2", fallback: "assets/set-b/1000274620.jpg", alt: "Supplied Set B profile screenshot, three", caption: "Bright moon over clouds" },
+    { src: "assets/set-b/1000274621.webp?v=2", fallback: "assets/set-b/1000274621.jpg", alt: "Supplied Set B conversation screenshot, four", caption: "The first threads of a conversation" },
+    { src: "assets/set-b/1000274622.webp?v=2", fallback: "assets/set-b/1000274622.jpg", alt: "Supplied Set B conversation screenshot, five", caption: "Fragments of a universe" },
+    { src: "assets/set-b/1000274623.webp?v=2", fallback: "assets/set-b/1000274623.jpg", alt: "Supplied Set B conversation screenshot, six", caption: "A thread that kept unfolding" },
+    { src: "assets/set-b/1000274624.webp?v=2", fallback: "assets/set-b/1000274624.jpg", alt: "Supplied Set B conversation screenshot, seven", caption: "The things we said along the way" },
+    { src: "assets/set-b/1000274625.webp?v=2", fallback: "assets/set-b/1000274625.jpg", alt: "Supplied Set B screenshot, eight", caption: "A little name, a little promise" },
+    { src: "assets/set-b/1000274465.webp?v=2", fallback: "assets/set-b/1000274465.jpg", alt: "Supplied Set B conversation screenshot, nine", caption: "A story shared beneath the same sky" },
+    { src: "assets/set-b/1000274466.webp?v=2", fallback: "assets/set-b/1000274466.jpg", alt: "Supplied Set B conversation screenshot, ten", caption: "When the conversation grew deeper" },
+    { src: "assets/set-b/1000274467.webp?v=2", fallback: "assets/set-b/1000274467.jpg", alt: "Supplied Set B conversation screenshot, eleven", caption: "One more kept fragment" },
+    { src: "assets/set-b/1000274468.webp?v=2", fallback: "assets/set-b/1000274468.jpg", alt: "Supplied Set B conversation screenshot, twelve", caption: "The conversation carries on" }
   ],
   wishes: [
     { title: 'May sorrow lose its way', text: 'May every sorrow searching for you lose its way, and may gentleness find you again and again.', colour: '#c5f17c', glyph: '✧' },
