@@ -1,0 +1,86 @@
+name: Import website bundle and memory images
+
+on:
+  push:
+    paths:
+      - "Anisha_Netlify_Deploy_Package.zip"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  expand-site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate and expand the complete website bundle
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path, PurePosixPath
+          from zipfile import ZipFile
+
+          archive = Path("Anisha_Netlify_Deploy_Package.zip")
+          if not archive.is_file():
+              raise SystemExit("Missing Anisha_Netlify_Deploy_Package.zip at repository root.")
+
+          set_a = [
+              "1000273785.jpg", "1000273788.jpg", "1000269536.jpg",
+              "1000269530.jpg", "1000269512.jpg", "1000269616.png",
+              "1000269497.jpg", "1000268857.jpg",
+          ]
+          set_b = [
+              "1000274618.jpg", "1000274619.jpg", "1000274620.jpg",
+              "1000274621.jpg", "1000274622.jpg", "1000274623.jpg",
+              "1000274624.jpg", "1000274625.jpg", "1000274465.jpg",
+              "1000274466.jpg", "1000274467.jpg", "1000274468.jpg",
+          ]
+
+          with ZipFile(archive) as bundle:
+              names = set(bundle.namelist())
+              required = {"index.html", "content.js"}
+              required.update(f"assets/set-a/{name}" for name in set_a)
+              required.update(f"assets/set-b/{name}" for name in set_b)
+              missing = sorted(required - names)
+              if missing:
+                  raise SystemExit("Bundle is missing required website/media files: " + ", ".join(missing))
+
+              for item in bundle.infolist():
+                  if item.is_dir():
+                      continue
+                  rel = PurePosixPath(item.filename)
+                  if rel.is_absolute() or ".." in rel.parts:
+                      raise SystemExit("Unsafe archive path rejected: " + item.filename)
+
+                  # Keep the repository-level deployment configuration and guide.
+                  if str(rel) in {
+                      "netlify.toml",
+                      "README.txt",
+                      "NETLIFY_DEPLOY_README.txt",
+                  }:
+                      continue
+
+                  destination = Path(*rel.parts)
+                  destination.parent.mkdir(parents=True, exist_ok=True)
+                  destination.write_bytes(bundle.read(item))
+
+          print("Expanded website source and verified all 8 Set A + 12 Set B originals.")
+          PY
+
+      - name: Commit site files and images
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html content.js _headers assets
+          if git diff --cached --quiet; then
+            echo "No site files changed."
+            exit 0
+          fi
+          git commit -m "Import complete birthday website and original gallery images"
+          git push
