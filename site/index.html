@@ -381,6 +381,51 @@ main{position:relative;isolation:isolate}.section{position:relative;padding:clam
  .gallery-chain .chain-core{animation:none!important}
 }
 
+
+/* DNA orbit v6: each photo window keeps its native aspect ratio; captions have their own clear rail. */
+#panelsSetA,#panelsSetB{z-index:4}
+.gallery-chain{z-index:0!important}
+.revolve-panel{container-type:inline-size;overflow:hidden;transition:width .24s cubic-bezier(.2,.7,.2,1),height .24s cubic-bezier(.2,.7,.2,1),border-color .24s,box-shadow .24s}
+.revolve-panel .panel-image-window{
+ top:var(--frame-top,7px)!important;
+ left:50%!important;
+ right:auto!important;
+ bottom:auto!important;
+ width:var(--photo-width,calc(100% - 14px))!important;
+ height:var(--photo-height,calc(100% - 110px))!important;
+ transform:translateX(-50%)!important;
+ box-sizing:border-box;
+ aspect-ratio:auto;
+}
+.revolve-panel .panel-image-window img{width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain!important;object-position:center!important;background:#04191c}
+.revolve-panel .panel-caption{left:10px;right:10px;bottom:9px;min-height:0;align-items:flex-end;gap:7px}
+.revolve-panel .panel-caption-copy{min-width:0;flex:1 1 auto}
+.revolve-panel .panel-caption-copy small{white-space:normal;overflow-wrap:anywhere}
+.revolve-panel .panel-caption-copy strong{overflow-wrap:anywhere;word-break:normal}
+.revolve-panel .panel-caption-actions{flex:0 0 auto}
+@container (max-width:230px){
+ .revolve-panel .panel-caption{left:7px;right:7px;gap:4px}
+ .revolve-panel .panel-caption-copy strong{font-size:12px!important;line-height:1.05;max-height:3.2em}
+ .revolve-panel .panel-caption-copy small{font-size:6px!important;letter-spacing:.06em;line-height:1.15}
+ .revolve-panel .panel-caption-actions{gap:4px}
+ .revolve-panel .panel-count{font-size:6px;letter-spacing:.03em}
+ .revolve-panel .panel-open{padding:4px 6px;font-size:6px}
+}
+@container (max-width:175px){
+ .revolve-panel .panel-caption-copy strong{font-size:10px!important;line-height:1.02;max-height:3em}
+ .revolve-panel .panel-caption-copy small{font-size:5px!important}
+ .revolve-panel .panel-open{padding:3px 5px;font-size:5px}
+}
+@media(max-width:800px){
+ .revolve-panel.is-featured .panel-caption{left:10px;right:10px;bottom:10px;gap:6px}
+ .revolve-panel.is-featured .panel-caption-copy strong{font-size:clamp(12px,3.9vw,21px);line-height:1.04}
+ .revolve-panel.is-featured .panel-caption-copy small{font-size:7px;letter-spacing:.08em;margin-bottom:5px}
+}
+@media(prefers-reduced-motion:reduce){
+ .revolve-panel{transition:none!important}
+ .gallery-chain .chain-core{animation:none!important}
+}
+
 </style>
 </head>
 <body>
@@ -498,6 +543,47 @@ function initGallery(key,container,items,progressLabel,dotsContainer,prevBtn,nex
  const gallerySection=host.closest('.gallery-world');const scrollArea=gallerySection.querySelector('.gallery-scroll');const stage=host.closest('.gallery-stage');mountLivingArchitecture(stage);galleryRefs[key]={items,panels,dots:[...dots.children],progressLabel:$(progressLabel),scrollArea,section:gallerySection,stage,host,displayPosition:0,targetPosition:0,motionFrame:0};
  function jump(i){const r=galleryRefs[key];const top=r.scrollArea.getBoundingClientRect().top+scrollY;const range=Math.max(1,r.scrollArea.scrollHeight-innerHeight);const target=top-innerHeight*.11+(i/(count-1||1))*range;window.scrollTo({top:Math.max(0,target),behavior:reducedMotion?'auto':'smooth'})}
  prevBtn&&$(prevBtn).addEventListener('click',()=>jump(Math.max(0,activeIndexes[key]-1)));nextBtn&&$(nextBtn).addEventListener('click',()=>jump(Math.min(count-1,activeIndexes[key]+1)));updateOneGallery(key,false)}
+function fitPanelFrame(panel,img,key,role,small,stage){
+ const stageW=Math.max(1,stage&&stage.clientWidth||innerWidth);
+ const stageH=Math.max(1,stage&&stage.clientHeight||innerHeight*.6);
+ const ratioRaw=img&&img.naturalWidth>0&&img.naturalHeight>0?img.naturalWidth/img.naturalHeight:(key==='setB'?.52:1.28);
+ const ratio=Math.min(3.2,Math.max(.38,ratioRaw));
+ let side,top,bottom,maxOuterW,maxOuterH,minOuterW;
+ if(role==='featured'){
+  side=small?6:8;top=small?7:8;bottom=small?100:103;
+  maxOuterW=Math.min(stageW-(small?18:48),innerWidth-(small?22:72),small?(key==='setB'?390:520):(key==='setB'?660:780));
+  maxOuterH=small?Math.min(stageH*.94,innerHeight*(key==='setB'?.62:.52)):Math.min(stageH*.94,innerHeight*(key==='setB'?.76:.65));
+  minOuterW=small?218:260;
+ }else if(role==='orbiting'){
+  side=small?6:7;top=small?6:7;bottom=small?62:68;
+  maxOuterW=small?(key==='setB'?150:174):(key==='setB'?270:310);
+  maxOuterH=small?Math.min(stageH*(key==='setB'?.56:.49),innerHeight*(key==='setB'?.36:.31)):Math.min(stageH*.57,innerHeight*.43);
+  minOuterW=small?(key==='setB'?116:126):158;
+ }else{
+  side=small?4:5;top=small?4:5;bottom=small?43:46;
+  maxOuterW=small?(key==='setB'?126:145):(key==='setB'?180:200);
+  maxOuterH=small?Math.min(stageH*.36,innerHeight*.25):Math.min(stageH*.37,innerHeight*.30);
+  minOuterW=small?(key==='setB'?106:114):132;
+ }
+ maxOuterW=Math.max(minOuterW+2*side, maxOuterW);
+ maxOuterH=Math.max(top+bottom+54,maxOuterH);
+ const maxPhotoW=Math.max(48,maxOuterW-2*side);
+ const maxPhotoH=Math.max(48,maxOuterH-top-bottom);
+ const photoW=Math.max(48,Math.min(maxPhotoW,maxPhotoH*ratio));
+ const photoH=photoW/ratio;
+ const signature=[role,ratio.toFixed(3),stageW,stageH,innerWidth,innerHeight,small?1:0].join('|');
+ if(panel.dataset.frameSignature===signature)return;
+ panel.dataset.frameSignature=signature;
+ panel.style.setProperty('--frame-side',side+'px');
+ panel.style.setProperty('--frame-top',top+'px');
+ panel.style.setProperty('--frame-bottom',bottom+'px');
+ panel.style.setProperty('--photo-width',photoW.toFixed(1)+'px');
+ panel.style.setProperty('--photo-height',photoH.toFixed(1)+'px');
+ panel.style.width=(photoW+side*2).toFixed(1)+'px';
+ panel.style.height=(photoH+top+bottom).toFixed(1)+'px';
+ panel.style.minWidth=minOuterW+'px';
+ panel.style.minHeight='0px';
+}
 function renderGalleryAt(key,position){
  const r=galleryRefs[key];if(!r)return;
  const n=r.items.length,index=Math.max(0,Math.min(r.items.length-1,Math.round(position)));
@@ -550,6 +636,7 @@ function renderGalleryAt(key,position){
    img.loading=abs<.55?'eager':'lazy';img.fetchPriority=abs<.55?'high':'auto';
    img.dataset.loaded='true';img.classList.add('is-loading');img.src=img.dataset.src;
   }
+  fitPanelFrame(panel,img,key,role,small,r.stage);
   if(!lowBandwidthMode&&role==='featured'){
    const src=r.items[i].src;
    if(win.dataset.backdropSrc!==src){win.style.setProperty('--memory-art','url("'+src+'")');win.dataset.backdropSrc=src;}
