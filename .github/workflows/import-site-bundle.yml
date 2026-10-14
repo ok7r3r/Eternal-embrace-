@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "Anisha_GitHub_Pages_Package.zip"
+      - ".github/workflows/import-site-bundle.yml"
   workflow_dispatch:
 
 permissions:
