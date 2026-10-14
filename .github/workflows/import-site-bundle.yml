@@ -100,6 +100,8 @@ jobs:
           PY
 
       - name: Resize and regenerate lightweight WebP images
+        env:
+          LANTERN_BRIDGE_URL: "https://dnznrvs05pmza.cloudfront.net/gemini/gemini-3.1-flash-image/images/a43872db-715d-4f0c-877a-9abe6b9b7a76/da507db9-67f1-4653-bc78-fea24a840777/One_standalone_WIDE_LANDSCAPE_16_9_background_illustration_f.png?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiMzFjMTgyNDhmOWIwMWNkMSIsImJ1Y2tldCI6InJ1bndheS10YXNrLWFydGlmYWN0cyIsImV4cCI6MTc5MjA3NzM4NH0.XQo8x0z90WkpFy3jVu53ebynspk1siuNh2-jwu3zMs4"
         shell: bash
         run: |
           python -c "from PIL import Image" 2>/dev/null || python -m pip install --disable-pip-version-check Pillow
