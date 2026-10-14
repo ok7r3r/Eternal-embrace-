@@ -1,17 +1,17 @@
 # Anisha's Enchanted Universe
 
-This is the source repository for a public, interactive birthday website. The deployment target is **GitHub Pages only**; Netlify is not part of the publishing workflow.
+The complete static birthday website and gallery assets are already in this repository. Deployment is **GitHub Pages only** (no Netlify).
 
-## Publish the complete website
+## Finish publishing (one-time GitHub setting + run)
 
-1. Download `Anisha_GitHub_Pages_Package.zip` from the ChatGPT conversation.
-2. Open this repository, choose **Add file → Upload files**, upload that ZIP at the repository root, and commit it to `main`.
-3. The GitHub Actions workflow `.github/workflows/import-site-bundle.yml` validates the ZIP, extracts the complete site and original image files under `site/`, commits those files to this repository, and deploys `site/` with GitHub Pages.
-4. Follow the workflow under the **Actions** tab. When it succeeds, the intended website address is:
+1. Open [Settings → Pages](https://github.com/ok7r3r/Eternal-embrace-/settings/pages).
+2. Under **Build and deployment**, set **Source** to **GitHub Actions**. Save if a Save button appears.
+3. Open the [GitHub Actions workflow](https://github.com/ok7r3r/Eternal-embrace-/actions/workflows/import-site-bundle.yml), tap **Run workflow**, keep branch `main), and start it.
+4. Wait for a green check. Then open:
 
-   `https://ok7r3r.github.io/Eternal-embrace-/`
+   **https://ok7r3r.github.io/Eternal-embrace-/**
 
-If GitHub Pages has not been configured for this repository yet, open **Settings → Pages** and set **Build and deployment → Source** to **GitHub Actions** before uploading the archive.
+If Pages is not yet enabled, the workflow fails at “Configure GitHub Pages”; complete Step 1–2 and run it again.
 
 ## Gallery manifest
 
@@ -39,11 +39,8 @@ If GitHub Pages has not been configured for this repository yet, open **Settings
 11. `1000274467.jpg`
 12. `1000274468.jpg`
 
-The site content uses relative paths under `assets/set-a/` and `assets/set-b/`, so it works at the GitHub Pages project URL. The bundle also contains separate scenery references in `assets/art/`.
+Files are in `site/assets/set-a/`, `site/assets/set-b/`, and separate scenery art in `site/assets/art/`. `site/content.js` points to the relative image paths, so the gallery paths work under the project URL.
 
-## Privacy and GitHub plan requirements
+## Privacy
 
-- With GitHub Free, Pages requires a public repository. Making this repository public exposes the code and all committed images/screenshots; anyone can fork or download them.
-- GitHub Pro/Team/Enterprise can publish Pages from a private repository, subject to plan rules.
-- Review all Set B conversations before making the source repository public. Even if the repository stays private, the published public site makes gallery images accessible to site visitors.
-- Do not commit credentials, private API keys, or passwords.
+This repository is currently **public**. That means its source code, personal photos and Set B conversation screenshots are directly viewable and downloadable by anyone, regardless of whether Pages has finished publishing. Please review the conversation screenshots for personal handles and details. Do not commit passwords, API keys, or other credentials.
