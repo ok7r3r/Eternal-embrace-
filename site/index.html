@@ -531,7 +531,8 @@ main{position:relative;isolation:isolate}.section{position:relative;padding:clam
  .moonlit-bridge .bridge-content{animation:none!important}
 }
 @media(prefers-reduced-motion:reduce){
- .bridge-aurora,.bridge-petal,.moonlit-bridge .bridge-content{animation:none!important;opacity:.16!important;transform:none!important;will-change:auto!important}
+ .bridge-aurora,.bridge-petal{animation:none!important;opacity:.16!important;transform:none!important;will-change:auto!important}
+ .moonlit-bridge .bridge-content{animation:none!important;transform:none!important;will-change:auto!important}
 }
 .low-bandwidth .bridge-aurora{display:none}
 .low-bandwidth .bridge-petal:nth-of-type(n+3){display:none}
@@ -612,12 +613,19 @@ function initDeferredSceneArt(){
  const scenes=[
   {el:$('.gate-art'),webp:'assets/art/gate.webp?v=2',fallback:'assets/art/gate.jpg',layers:'linear-gradient(180deg,#081e1b05 10%,#081e1bb1 88%,#06181722)'},
   {el:$('.final-backdrop'),webp:'assets/art/butterfly-girl-mood.webp?v=2',fallback:'assets/art/butterfly-girl-mood.jpg',layers:'linear-gradient(90deg,#06151ded,#06191d85 42%,#06151dce),linear-gradient(0deg,#06151d 0,transparent 30%,#09191d45)'},
-  {el:$('.lantern-bridge-backdrop'),svg:'assets/art/moonlit-lantern-bridge.svg?v=1',layers:'linear-gradient(180deg,#06181945 0%,#0618191c 45%,#061819df 100%),linear-gradient(90deg,#0618196b,#06181920 52%,#06181969)'}
+  {el:$('.lantern-bridge-backdrop'),svg:'assets/art/moonlit-lantern-bridge.svg?v=1',svgMobile:'assets/art/moonlit-lantern-bridge-mobile.svg?v=1',layers:'linear-gradient(180deg,#06181945 0%,#0618191c 45%,#061819df 100%),linear-gradient(90deg,#0618196b,#06181920 52%,#06181969)'}
  ].filter(s=>s.el);
  const canSet=!!(window.CSS&&CSS.supports&&CSS.supports('background-image','image-set(url("a.webp") type("image/webp"),url("a.jpg") type("image/jpeg"))'));
- const loadScene=s=>{if(s.el.dataset.artReady)return;s.el.dataset.artReady='true';const art=s.svg?'url("'+s.svg+'")':(canSet?'image-set(url("'+s.webp+'") type("image/webp"),url("'+s.fallback+'") type("image/jpeg"))':'url("'+s.fallback+'")');s.el.style.backgroundImage=s.layers+','+art;};
+ const sceneArtUrl=s=>{
+  if(s.svg){const path=s.svgMobile&&window.matchMedia('(max-width:800px)').matches?s.svgMobile:s.svg;return 'url("'+path+'")';}
+  return canSet?'image-set(url("'+s.webp+'") type("image/webp"),url("'+s.fallback+'") type("image/jpeg"))':'url("'+s.fallback+'")';
+ };
+ const applySceneArt=s=>{s.el.style.backgroundImage=s.layers+','+sceneArtUrl(s);};
+ const loadScene=s=>{if(s.el.dataset.artReady)return;s.el.dataset.artReady='true';applySceneArt(s);};
  if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){const scene=scenes.find(s=>s.el===e.target);if(scene){loadScene(scene);observer.unobserve(e.target);}}}),{rootMargin:'700px 0px'});scenes.forEach(s=>observer.observe(s.el));}
  else scenes.forEach(loadScene);
+ let sceneResizeFrame=0;
+ window.addEventListener('resize',()=>{if(sceneResizeFrame)return;sceneResizeFrame=requestAnimationFrame(()=>{sceneResizeFrame=0;scenes.forEach(s=>{if(s.svgMobile&&s.el.dataset.artReady)applySceneArt(s);});});},{passive:true});
 }
 initDeferredSceneArt();
 const lanternBridge=$('#lanternBridge'),bridgeEmbers=$('#bridgeEmbers'),releaseLanternButton=$('#releaseLantern'),bridgeStatus=$('#bridgeStatus');
