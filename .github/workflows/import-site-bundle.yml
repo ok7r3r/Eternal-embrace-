@@ -3,6 +3,11 @@ name: Import site bundle and publish GitHub Pages
 on:
   workflow_dispatch:
   push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - '.github/workflows/import-site-bundle.yml'
+  push:
     branches:
       - main
     paths:
@@ -29,7 +34,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Validate and extract the complete static site
+      - name: Validate site files and import the bundle only when needed
         shell: bash
         run: |
           python - <<'PY'
@@ -38,11 +43,7 @@ jobs:
           import shutil
 
           archive = Path("Anisha_GitHub_Pages_Package.zip")
-          if not archive.is_file():
-              raise SystemExit(
-                  "Upload Anisha_GitHub_Pages_Package.zip to the repository root first."
-              )
-
+          target = Path("site")
           set_a = [
               "1000273785.jpg", "1000273788.jpg", "1000269536.jpg",
               "1000269530.jpg", "1000269512.jpg", "1000269616.png",
@@ -54,43 +55,52 @@ jobs:
               "1000274624.jpg", "1000274625.jpg", "1000274465.jpg",
               "1000274466.jpg", "1000274467.jpg", "1000274468.jpg",
           ]
+          art = [
+              "blue-butterfly.jpg", "butterfly-girl-mood.jpg",
+              "floating-mountains.jpg", "garden-variant.jpg", "gate.jpg",
+              "sky-palace.jpg", "sunlit-garden.jpg",
+          ]
+          required = {"index.html", "content.js", ".nojekyll"}
+          required.update(f"assets/set-a/{name}" for name in set_a)
+          required.update(f"assets/set-b/{name}" for name in set_b)
+          required.update(f"assets/art/{name}" for name in art)
 
-          with ZipFile(archive) as bundle:
-              names = set(bundle.namelist())
-              required = {"index.html", "content.js", ".nojekyll"}
-              required.update(f"assets/set-a/{name}" for name in set_a)
-              required.update(f"assets/set-b/{name}" for name in set_b)
-              missing = sorted(required - names)
-              if missing:
+          site_is_complete = target.is_dir() and all(
+              (target / name).is_file() for name in required
+          )
+          if site_is_complete:
+              print("Using the checked-in site/ files; existing code edits will be preserved.")
+          else:
+              if not archive.is_file():
                   raise SystemExit(
-                      "The package is missing required site/gallery files: "
-                      + ", ".join(missing)
+                      "The site/ files are incomplete and Anisha_GitHub_Pages_Package.zip is missing."
                   )
+              with ZipFile(archive) as bundle:
+                  names = set(bundle.namelist())
+                  missing = sorted(required - names)
+                  if missing:
+                      raise SystemExit(
+                          "The package is missing required site/gallery files: "
+                          + ", ".join(missing)
+                      )
+                  if target.exists():
+                      shutil.rmtree(target)
+                  target.mkdir(parents=True, exist_ok=True)
+                  for item in bundle.infolist():
+                      if item.is_dir():
+                          continue
+                      rel = PurePosixPath(item.filename)
+                      if rel.is_absolute() or ".." in rel.parts:
+                          raise SystemExit("Unsafe ZIP path rejected: " + item.filename)
+                      destination = target.joinpath(*rel.parts)
+                      destination.parent.mkdir(parents=True, exist_ok=True)
+                      destination.write_bytes(bundle.read(item))
+              print("Imported the verified package to initialise site/.")
 
-              target = Path("site")
-              if target.exists():
-                  shutil.rmtree(target)
-              target.mkdir(parents=True)
-
-              for item in bundle.infolist():
-                  if item.is_dir():
-                      continue
-                  rel = PurePosixPath(item.filename)
-                  if rel.is_absolute() or ".." in rel.parts:
-                      raise SystemExit("Unsafe ZIP path rejected: " + item.filename)
-                  # The validated archive is the whole deployable site.
-                  destination = target.joinpath(*rel.parts)
-                  destination.parent.mkdir(parents=True, exist_ok=True)
-                  destination.write_bytes(bundle.read(item))
-
-          # Verify the extracted files before committing or publishing.
-          missing_after = [str(Path("site") / f"assets/set-a/{name}") for name in set_a
-                           if not (Path("site") / f"assets/set-a/{name}").is_file()]
-          missing_after += [str(Path("site") / f"assets/set-b/{name}") for name in set_b
-                            if not (Path("site") / f"assets/set-b/{name}").is_file()]
+          missing_after = [name for name in required if not (target / name).is_file()]
           if missing_after:
-              raise SystemExit("Extracted gallery files missing: " + ", ".join(missing_after))
-          print("Verified index.html, content.js, 8 Set A originals and 12 Set B screenshots.")
+              raise SystemExit("Required site files missing: " + ", ".join(sorted(missing_after)))
+          print("Verified the HTML, JavaScript, art, 8 Set A originals and 12 Set B screenshots.")
           PY
 
       - name: Commit website source and media to the repository
