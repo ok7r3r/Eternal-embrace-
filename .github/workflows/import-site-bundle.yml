@@ -1,11 +1,6 @@
 name: Import site bundle and publish GitHub Pages
 
 on:
-  push:
-    paths:
-      - "Anisha_GitHub_Pages_Package.zip"
-      - ".github/workflows/import-site-bundle.yml"
-      - ".github/workflows/import-site-bundle.yml"
   workflow_dispatch:
 
 permissions:
